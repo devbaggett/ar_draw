@@ -28,7 +28,7 @@
                                     <constraint firstAttribute="width" constant="65" id="Eer-eg-BkR"/>
                                     <constraint firstAttribute="height" constant="45" id="MHs-7O-tcD"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Draw"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -43,6 +43,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="draw" destination="mdh-bw-v8U" id="gIx-ed-sp2"/>
                         <outlet property="sceneView" destination="3qo-7b-0VU" id="m9m-bm-qUI"/>
                     </connections>
                 </viewController>

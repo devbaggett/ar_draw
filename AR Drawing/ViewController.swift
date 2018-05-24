@@ -12,6 +12,7 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet weak var sceneView: ARSCNView!
+    @IBOutlet weak var draw: UIButton!
     
     let configuration = ARWorldTrackingConfiguration()
     
@@ -39,7 +40,33 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let location = SCNVector3(transform.m41,transform.m42,transform.m43)
         // get position from location and orientation
         let currentPositionOfCamera = orientation + location
-        print(orientation.x, orientation.y, orientation.z)
+//        print(orientation.x, orientation.y, orientation.z)
+        DispatchQueue.main.async {
+            if self.draw.isHighlighted {
+                // when button is being pressed
+                let sphereNode = SCNNode(geometry: SCNSphere(radius: 0.02))
+                sphereNode.position = currentPositionOfCamera
+                self.sceneView.scene.rootNode.addChildNode(sphereNode)
+                sphereNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+            } else {
+                let pointer = SCNNode(geometry: SCNSphere(radius: 0.01))
+                pointer.name = "pointer"
+                
+                // delete every pointer except first
+                self.sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
+                    // stops drawing from being erased when button is let go of
+                    if node.name == "pointer" {
+                        node.removeFromParentNode()
+                    }
+                }
+                
+                pointer.position = currentPositionOfCamera
+                self.sceneView.scene.rootNode.addChildNode(pointer)
+                pointer.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+            }
+        }
+        
+        
     }
 
 
